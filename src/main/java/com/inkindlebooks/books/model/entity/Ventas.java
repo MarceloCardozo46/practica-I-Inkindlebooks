@@ -5,22 +5,21 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "shopping_carts")
-public class ShoppingCart {
+@Table(name = "sales")
+public class Ventas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(targetEntity = User.class, cascade = {CascadeType.PERSIST})
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-
-    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ventas", cascade = CascadeType.ALL)
     private List<Book> books;
 
-    public ShoppingCart() {
+    public Ventas() {
     }
 
     public Long getId() {
@@ -46,8 +45,4 @@ public class ShoppingCart {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
-
-    /*public void addBook(List<Long> idBooks){
-        List<Book> bookList =
-    }*/
 }
